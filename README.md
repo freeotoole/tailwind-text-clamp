@@ -9,13 +9,13 @@ Adds a `text-clamp` utility to tailwind to linearly scale the text proportionall
 ## Getting Started
 
 Install via NPM:
-```
+```bash
 npm i @onthetools/tailwind-text-clamp
 ```
 
 Add to plugins array in your `tailwind.config.js` file:
 
-```json
+```js
 module.exports = {
   plugins: [
     // ...
@@ -23,10 +23,7 @@ module.exports = {
   ],
 }
 ```
-
-## Basic usage ##
-
-You can now use the `text-clamp-{size}` to linearly scale the font-size of an element.
+You can now use the `text-clamp-{size}` utility to linearly scale the font-size of an element.
 
 | Class   | Size at start of clamp  | Size at end of clamp  |
 | -----   | ---- | ----     |
@@ -44,115 +41,84 @@ You can now use the `text-clamp-{size}` to linearly scale the font-size of an el
 | clamp-text-8xl | `font-size: 7.450rem;` |  `font-size: 31.951rem;` |
 | clamp-text-9xl | `font-size: 9.313rem;` |  `font-size: 45.179rem;` |
 
+_____
 
-<p class="text-clamp-sm">Waltz, bad nymph, for quick jigs vex.</p>
-<p class="text-clamp-base">Waltz, bad nymph, for quick jigs vex.</p>
-<p class="text-clamp-lg">Waltz, bad nymph, for quick jigs vex.</p>
-<p class="text-clamp-xl">Waltz, bad nymph, for quick jigs vex.</p>
-<p class="text-clamp-2xl">Waltz, bad nymph, for quick jigs vex.</p>
+## Basic usage ##
+
+Just add your text-clamp class to any text you want to linearly scale:
 
 ```html
-<p class="text-clamp-sm ...">Waltz, bad nymph, for ...</p>
-<p class="text-clamp-base ...">Waltz, bad nymph, for ...</p>
-<p class="text-clamp-lg ...">Waltz, bad nymph, for ...</p>
-<p class="text-clamp-xl ...">Waltz, bad nymph, for ...</p>
-<p class="text-clamp-2xl ...">Waltz, bad nymph, for ...</p>
+<h2 class="text-clamp-2xl">III. A Case of Identity</h2>
+<p class="text-clamp-base">“My dear fellow,” said Sherlock Holmes as we sat on either side of the fire in his lodgings at Baker Street, “life is infinitely stranger than anything which the mind of man could invent. We would not dare to conceive the things which are really mere commonplaces of existence.” </p>
+<p class="text-clamp-sm"><cite>The Adventures of Sherlock Holmes</cite> by Arthur Conan Doyle</p>
 ```
 
-`text-clamp` uses Tailwind's `theme.screens` for start and end points for clamping font-sizes. By default text will start scaling between `screens.sm` (default: 640px) and `screens.2xl` (default: 1536px).
+<!-- <h2 class="text-clamp-2xl">III. A Case of Identity</h2>
+<p class="text-clamp-base">“My dear fellow,” said Sherlock Holmes as we sat on either side of the fire in his lodgings at Baker Street, “life is infinitely stranger than anything which the mind of man could invent. We would not dare to conceive the things which are really mere commonplaces of existence. If we could fly out of that window hand in hand, hover over this great city, gently remove the roofs, and peep in at the queer things which are going on, the strange coincidences, the plannings, the cross-purposes, the wonderful chains of events, working through generations, and leading to the most outré results, it would make all fiction with its conventionalities and foreseen conclusions most stale and unprofitable.” </p>
+<p class="text-clamp-sm"><cite>The Adventures of Sherlock Holmes</cite> by Arthur Conan Doyle</p> -->
 
-.
 
-.
 
 
 
 ### Options
-```json
+You can pass options to the plugin via `tailwind.config.js`:
+```js
 module.exports = {
   plugins: [
     // ...
     require("@onthetools/tailwind-text-clamp")({
       fontScaleMin: 1.125,
-      fontScaleMax: 1.5,
+      fontScaleMax: 1.333,
+      screenStart: 'md',
+      screenEnd: 'xl', 
     }),
   ],
 }
 ```
 
-## Usage: 
+## Available options: 
 
-- rootFontPx: Int 
-  - font size in px of the html element - default 16
-- fontScaleMin: Int 
-  - minimum font size in rem - default 1.25
-- fontScaleMax: Int 
-  - maximum font size in rem - default 1.414,
-- screenStart: String 
-  - Tailwind theme.screen size for starting point of slope - default "sm"
-- screenEnd: String 
-  - Tailwind theme.screen size for end point of slope - default "2xl"
-- viewportStart: String 
-  - manually set starting point of slope in px or rem, this has priority over screenStart - default null
-- viewportEnd: String 
-  - manually set end point of slope in px or rem, this has priority over screenStart - default null
-		
+### Changing the breakpoints between the scale is active:
 
-<style>
-  .clamp-text-xxs {
-  font-size: clamp(0.512rem , 0.5204635388458743rem + -0.02115884711468563vw, 0.5001510456157761rem);
+`text-clamp` picks up breakpoint values Tailwind's `theme.screens` for start and end breakpoints for clamping font-sizes. By default text will start scaling between `screens.sm` and `screens.2xl`.
+
+```js
+// Default values are:
+{
+  screenStart: 'sm', // default: 640px
+  screenEnd: '2xl', // default: 1536px
 }
+```
+**Note:** If these screens are not present in your tailwind.config.js you will have to set the screenStart and screenEnd values to values that exist in your tailwind.config.js `theme.screens` object or set the breakpoints manually using viewportStart and viewportEnd:
 
-.clamp-text-xs {
-  font-size: clamp(0.64rem , 0.5919903010709234rem + 0.12002424732269143vw, 0.7072135785007072rem);
+```js
+// Note viewport values ALWAYS take priority over screen values:
+{
+  viewportStart: '380px', // Text starts scaling here
+  viewportEnd: '1556px', // Text stops scaling here
 }
+```
 
-.clamp-text-sm {
-  font-size: clamp(0.8rem , 0.6571428571428573rem + 0.35714285714285704vw, 1rem);
+
+### Changing the font scale at start and end screens:
+
+I'm a huge fan of using the font scales over at [typescale.com](https://typescale.com/) so the default font is 1.250 (Major Third) at the smallest screen size and 1.414 (Augmented Fourth) at the largest. You can change the min and max font scale 
+
+```js
+// Default values are:
+{
+  fontScaleMin: 1.25, // Scale of font-size before starting breakpoint
+  fontScaleMax: 1.414,// Scale of font-size after ending breakpoint
 }
+```
 
-.clamp-text-base {
-  font-size: clamp(1rem , 0.7042857142857144rem + 0.7392857142857141vw, 1.414rem);
+### Changing root HTML font-size
+
+On the off chance your not using the default 16px font-size on the root html element you will need to set the rootFontPx to ensure the match converting px to ems is accurate. Really I have no idea why anyone would need to change this??? But if you're some sort of monster you can do this:
+
+```js
+{
+  rootFontPx: 12, // Must match font-size in px of html element
 }
-
-.clamp-text-lg {
-  font-size: clamp(1.25rem , 0.714717142857143rem + 1.3382071428571423vw, 1.9993959999999997rem);
-}
-
-.clamp-text-xl {
-  font-size: clamp(1.5625rem , 0.6591814685714288rem + 2.258296328571428vw, 2.8271459439999997rem);
-}
-
-.clamp-text-2xl {
-  font-size: clamp(1.953125rem , 0.49279688227428653rem + 3.650820294314284vw, 3.997584364815999rem);
-}
-
-.clamp-text-3xl {
-  font-size: clamp(2.44140625rem , 0.14770764867869834rem + 5.734246503303255vw, 5.652584291849823rem);
-}
-
-.clamp-text-4xl {
-  font-size: clamp(3.0517578125rem , -0.4775253133397488rem + 8.823207814599373vw, 7.992754188675648rem);
-}
-
-.clamp-text-5xl {
-  font-size: clamp(3.814697265625rem , -1.5332007037766893rem + 13.369744923504223vw, 11.301754422787365rem);
-}
-
-.clamp-text-6xl {
-  font-size: clamp(4.76837158203125rem , -3.240420683533097rem + 20.021980663910867vw, 15.980680753821336rem);
-}
-
-.clamp-text-7xl {
-  font-size: clamp(5.9604644775390625rem , -5.922548457006869rem + 29.707532336364828vw, 22.596682585903366rem);
-}
-
-.clamp-text-8xl {
-  font-size: clamp(7.450580596923828rem , -10.050225531321551rem + 43.752015320613445vw, 31.951709176467357rem);
-}
-
-.clamp-text-9xl {
-  font-size: clamp(9.313225746154785rem , -16.305696417680974rem + 64.0473054095894vw, 45.179716775524845rem);
-}
-
-</style>
+```
