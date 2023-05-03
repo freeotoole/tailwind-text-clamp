@@ -1,6 +1,6 @@
 {
   "name": "@onthetools/tailwind-text-clamp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tailwind plugin to add responsive scaled font sizing utility using CSS clamp() ",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Constructive-Procrastination/tailwind-text-clamp.git"
+    "url": "git+https://github.com/freeotoole/tailwind-text-clamp.git"
   },
   "keywords": [
     "Tailwind",
@@ -19,9 +19,9 @@
   "author": "Free O'Toole",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Constructive-Procrastination/tailwind-text-clamp/issues"
+    "url": "https://github.com/freeotoole/tailwind-text-clamp/issues"
   },
-  "homepage": "https://github.com/Constructive-Procrastination/tailwind-text-clamp#readme",
+  "homepage": "https://github.com/freeotoole/tailwind-text-clamp#readme",
   "devDependencies": {
     "tailwindcss": "^3.2.7"
   }

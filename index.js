@@ -2,7 +2,6 @@ const plugin = require("tailwindcss/plugin");
 
 // Mostly pinched from https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
 const clampedFonts = (options = {}) => {
-	console.log(options);
 
 	const pxToEms = (value) => {
 		// if px / 16
