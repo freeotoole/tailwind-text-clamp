@@ -78,7 +78,7 @@ const clampedFonts = (options = {}) => {
 			};
 		})
 	);
-	console.log(largeFonts);
+
 	return {
 		...smallFonts,
 		...largeFonts,
