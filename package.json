@@ -1,6 +1,6 @@
 {
   "name": "@onthetools/tailwind-text-clamp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Tailwind plugin to add responsive scaled font sizing utility using CSS clamp() ",
   "main": "index.js",
   "scripts": {

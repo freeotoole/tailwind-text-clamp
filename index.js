@@ -3,6 +3,9 @@ const plugin = require("tailwindcss/plugin");
 // Mostly pinched from https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
 const clampedFonts = (options = {}) => {
 
+	// optional Custom class name for utility
+	const utilityClassName = options.utilityClassName || 'text'
+
 	const pxToEms = (value) => {
 		// if px / 16
 		const num = parseInt(value, 10);
@@ -48,7 +51,7 @@ const clampedFonts = (options = {}) => {
 			const yAxisIntersection = -pxToEms(vp.min) * slope + fs.min;
 
 			return {
-				[`.clamp-text-${key}`]: {
+				[`.${utilityClassName}-${key}`]: {
 					"font-size": `clamp(${fs.min}rem , ${yAxisIntersection}rem + ${
 						slope * 100
 					}vw, ${fs.max}rem)`,
@@ -67,7 +70,7 @@ const clampedFonts = (options = {}) => {
 			const yAxisIntersection = `${-pxToEms(vp.min) * slope + fs.min}`; // make this unit
 
 			return {
-				[`.clamp-text-${key}`]: {
+				[`.${utilityClassName}-${key}`]: {
 					"font-size": `clamp(${fs.min}rem , ${yAxisIntersection}rem + ${
 						slope * 100
 					}vw, ${fs.max}rem)`,
@@ -75,7 +78,7 @@ const clampedFonts = (options = {}) => {
 			};
 		})
 	);
-
+	console.log(largeFonts);
 	return {
 		...smallFonts,
 		...largeFonts,
