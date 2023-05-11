@@ -36,6 +36,23 @@ const clampedFonts = (options = {}) => {
 		"8xl",
 		"9xl",
 	];
+
+	const leading = {
+		"xxs": 1.75,
+		"xs": 1.75,
+		"sm": 1.75,
+		"base": 1.75,
+		"lg": 1.75,
+		"xl": 1.5,
+		"2xl": 1.35,
+		"3xl": 1.35,
+		"4xl": 1.35,
+		"5xl": 1.25,
+		"6xl": 1.25,
+		"7xl": 1.25,
+		"8xl": 1.25,
+		"9xl": 1.25
+	}
 	const fontSizesSmall = ["sm", "xs", "xxs"];
 
 	const largeFonts = Object.assign(
@@ -55,6 +72,7 @@ const clampedFonts = (options = {}) => {
 					"font-size": `clamp(${fs.min}rem , ${yAxisIntersection}rem + ${
 						slope * 100
 					}vw, ${fs.max}rem)`,
+					"line-height": `${leading[key]}`
 				},
 			};
 		})
@@ -74,11 +92,12 @@ const clampedFonts = (options = {}) => {
 					"font-size": `clamp(${fs.min}rem , ${yAxisIntersection}rem + ${
 						slope * 100
 					}vw, ${fs.max}rem)`,
+					"line-height": `${leading[key]}`
 				},
 			};
 		})
 	);
-
+	
 	return {
 		...smallFonts,
 		...largeFonts,
